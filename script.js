@@ -1,4 +1,3 @@
-// Елементи DOM
 const userNameElement = document.getElementById('user-name');
 const userScoreElement = document.getElementById('user-score');
 const computerScoreElement = document.getElementById('computer-score');
@@ -10,7 +9,6 @@ const restartButton = document.getElementById('restart-btn');
 const messageElement = document.getElementById('message');
 const roundCounterElement = document.getElementById('round-counter');
 
-// Змінні гри
 let userName = '';
 let userScore = 0;
 let computerScore = 0;
@@ -18,19 +16,17 @@ let round = 1;
 let gameOver = false;
 let userStood = false;
 
-// Номінали карт
 const cardValues = {
     '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
     'Валет': 2, 'Дама': 3, 'Король': 4, 'Туз': 11
 };
 
-// Запит імені гравця
 function askUserName() {
     userName = prompt('Будь ласка, введіть ваше ім\'я:') || 'Гравець';
     userNameElement.textContent = userName;
 }
 
-// Початок нової гри
+// Нова гра
 function startNewGame() {
     userScore = 0;
     computerScore = 0;
@@ -49,24 +45,22 @@ function startNewGame() {
     dealInitialCards();
 }
 
-// Оновлення рахунків
+// Оновлення рахунку
 function updateScores() {
     userScoreElement.textContent = userScore;
     computerScoreElement.textContent = computerScore;
 }
 
-// Очищення карт
 function clearCards() {
     userCardsElement.innerHTML = '';
     computerCardsElement.innerHTML = '';
 }
 
-// Оновлення лічильника раундів
+// Оновлення лічильника
 function updateRoundCounter() {
     roundCounterElement.textContent = `Раунд: ${round} з 3`;
 }
 
-// Роздача початкових карт
 function dealInitialCards() {
     drawCard('user');
     drawCard('user');
@@ -74,7 +68,7 @@ function dealInitialCards() {
     drawCard('computer');
 }
 
-// Отримати випадкову карту
+// Випадкова карта
 function getRandomCard() {
     const cardNames = Object.keys(cardValues);
     const randomCardName = cardNames[Math.floor(Math.random() * cardNames.length)];
@@ -84,7 +78,7 @@ function getRandomCard() {
     };
 }
 
-// Взяти карту
+// Беремо карту
 function drawCard(player) {
     if (gameOver) return;
     
@@ -124,18 +118,22 @@ function checkGameStatus() {
     }
 }
 
-// Хід комп'ютера
 function computerTurn() {
     if (computerScore < 17) {
         setTimeout(() => {
             drawCard('computer');
+            // Продовжуємо хід комп'ютера, поки він не набере достатньо очок
+            if (computerScore < 17) {
+                computerTurn();
+            } else {
+                endRound();
+            }
         }, 1000);
     } else {
         endRound();
     }
 }
 
-// Кінець раунду
 function endRound(winner = null) {
     gameOver = true;
     
@@ -153,7 +151,7 @@ function endRound(winner = null) {
     setTimeout(nextRound, 3000);
 }
 
-// Показати результат
+// Результат
 function showResult(winner) {
     if (winner === 'user') {
         messageElement.textContent = `Вітаємо, ${userName}! Ви виграли раунд!`;
@@ -203,19 +201,16 @@ function endGame() {
     }, 1000);
 }
 
-// Увімкнути кнопки
 function enableButtons() {
     drawButton.disabled = false;
     standButton.disabled = false;
 }
 
-// Вимкнути кнопки
 function disableButtons() {
     drawButton.disabled = true;
     standButton.disabled = true;
 }
 
-// Обробники подій
 drawButton.addEventListener('click', function() {
     if (!gameOver && !userStood) {
         drawCard('user');
@@ -227,7 +222,9 @@ standButton.addEventListener('click', function() {
         userStood = true;
         disableButtons();
         messageElement.textContent = `${userName}, ви зупинилися. Хід комп'ютера.`;
-        computerTurn();
+        setTimeout(() => {
+            computerTurn();
+        }, 1000);
     }
 });
 
@@ -238,6 +235,5 @@ restartButton.addEventListener('click', function() {
     }
 });
 
-// Запуск гри
 askUserName();
 startNewGame();
