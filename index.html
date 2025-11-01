@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гра «21»</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Гра «21»</h1>
+            <p>Грайте проти комп'ютера. Наберіть більше очок, але не більше 21!</p>
+        </header>
+        
+        <div class="round-info">
+            <span id="round-counter">Раунд: 1 з 3</span>
+        </div>
+        
+        <div class="game-info">
+            <div class="player-info">
+                <div class="player-name" id="user-name">Гравець</div>
+                <div class="score" id="user-score">0</div>
+            </div>
+            <div class="player-info">
+                <div class="player-name">Комп'ютер</div>
+                <div class="score" id="computer-score">0</div>
+            </div>
+        </div>
+        
+        <div class="cards-container">
+            <div class="player-cards" id="user-cards"></div>
+            <div class="player-cards" id="computer-cards"></div>
+        </div>
+        
+        <div class="message" id="message">
+            Просимо, Вас, до гри «21»!
+        </div>
+        
+        <div class="controls">
+            <button id="draw-btn">Взяти карту</button>
+            <button id="stand-btn">Зупинитися</button>
+            <button id="restart-btn">Нова гра</button>
+        </div>
+    </div>
+	
+    <img src="6.jpg" alt="6" class="card-img" style="display:none">
+    <img src="7.jpg" alt="7" class="card-img" style="display:none">
+    <img src="8.jpg" alt="8" class="card-img" style="display:none">
+    <img src="9.jpg" alt="9" class="card-img" style="display:none">
+    <img src="10.jpg" alt="10" class="card-img" style="display:none">
+    <img src="Валет.jpg" alt="Валет" class="card-img" style="display:none">
+    <img src="Дама.jpg" alt="Дама" class="card-img" style="display:none">
+    <img src="Король.jpg" alt="Король" class="card-img" style="display:none">
+    <img src="Туз.jpg" alt="Туз" class="card-img" style="display:none">
+</body>
+</html>
